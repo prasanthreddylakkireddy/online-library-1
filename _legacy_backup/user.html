@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Online Library Management System - Student Portal Dashboard">
+    <title>User Dashboard - Online Library Management System</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="nav-brand">
+            <img src="images/logo.png" alt="Library Emblem" width="26" height="26" style="vertical-align: middle;">
+            <span>ONLINE LIBRARY</span>
+            <span class="badge">STUDENT PORTAL</span>
+        </div>
+        <div class="nav-user-identity">
+            <div class="user-identity-box">
+                <div class="identity-avatar">👤</div>
+                <div class="identity-text">
+                    <span id="headerStudentName" class="identity-name">Student User</span>
+                    <span id="headerStudentId" class="identity-id">STU-2026-8841</span>
+                </div>
+            </div>
+            <button id="logoutBtn" class="btn-logout" type="button">Logout</button>
+        </div>
+    </header>
+
+    <!-- Dashboard Main Layout -->
+    <div class="dashboard-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" aria-label="Student Navigation">
+            <ul class="sidebar-menu" id="sidebarMenu">
+                <li class="sidebar-item active">
+                    <a href="#dashboard" data-section="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#books" data-section="books">
+                        <span class="nav-icon">📖</span>
+                        <span>Books</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#my-books" data-section="my-books">
+                        <span class="nav-icon">📑</span>
+                        <span>My Books</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#reservations" data-section="reservations">
+                        <span class="nav-icon">🔖</span>
+                        <span>Reservations</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#history" data-section="history">
+                        <span class="nav-icon">🕒</span>
+                        <span>History</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#profile" data-section="profile">
+                        <span class="nav-icon">👤</span>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-footer-note">
+                    <strong>Academic Session</strong><br>
+                    2026 - 2027 &bull; Active Card
+                </div>
+                <button id="sidebarLogoutBtn" class="sidebar-logout-btn" type="button">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- System Notification Feedback Banner -->
+            <div id="notificationBanner" class="notification-banner" role="status"></div>
+
+            <!-- ==============================================
+                 SECTION 1: DASHBOARD OVERVIEW
+            =============================================== -->
+            <section id="section-dashboard" class="dashboard-section active-section">
+                <header class="page-header">
+                    <h1>USER DASHBOARD</h1>
+                    <p>Welcome back, <strong id="welcomeEmailDisplay">student@gmail.com</strong> — Manage your books, reservations and library activity.</p>
+                </header>
+
+                <!-- 4 Statistics Cards -->
+                <section class="stats-grid" aria-label="Library Overview Summary">
+                    <div class="stat-card">
+                        <div class="stat-label">Borrowed Books</div>
+                        <div id="statBorrowedCount" class="stat-value">0</div>
+                        <div class="stat-subtext">Currently checked out</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Reserved Books</div>
+                        <div id="statReservedCount" class="stat-value">0</div>
+                        <div class="stat-subtext">Waiting on hold</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Available Books</div>
+                        <div id="statAvailableCount" class="stat-value">0</div>
+                        <div class="stat-subtext">Ready for checkout</div>
+                    </div>
+
+                    <div class="stat-card overdue-stat">
+                        <div class="stat-label">Overdue Books</div>
+                        <div id="statOverdueCount" class="stat-value">0</div>
+                        <div class="stat-subtext">Requires return</div>
+                    </div>
+                </section>
+
+                <!-- Dashboard Quick Panels -->
+                <div class="dashboard-panels">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h3>Active Loans Quick View</h3>
+                            <span class="panel-link" data-switch="my-books">View All My Books &rarr;</span>
+                        </div>
+                        <div id="dashboardBorrowedSummary">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h3>Catalog Quick Access</h3>
+                            <span class="panel-link" data-switch="books">Browse Catalog &rarr;</span>
+                        </div>
+                        <p style="font-size: 13px; color: var(--secondary-text); margin-bottom: 14px; line-height: 1.5;">
+                            Search our central academic catalog to borrow available texts for your semester coursework or place reservations on in-demand titles.
+                        </p>
+                        <button class="btn btn-outline" style="width: 100%;" data-switch="books">
+                            Open Book Catalog
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 2: BROWSE BOOKS
+            =============================================== -->
+            <section id="section-books" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Browse Books</h1>
+                    <p>Search by title or author, filter by academic discipline, and borrow or reserve books.</p>
+                </header>
+
+                <!-- Search & Category Filter Toolbar -->
+                <div class="filter-bar">
+                    <div class="search-input-group">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Search by title or author..."
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <div class="category-select-group">
+                        <select id="categoryFilter" aria-label="Filter by Category">
+                            <option value="All Categories">All Categories</option>
+                            <option value="Programming">Programming</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Database">Database</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Cyber Security">Cyber Security</option>
+                            <option value="Cloud Computing">Cloud Computing</option>
+                            <option value="Operating Systems">Operating Systems</option>
+                            <option value="Computer Networks">Computer Networks</option>
+                            <option value="Software Engineering">Software Engineering</option>
+                            <option value="Algorithms">Algorithms</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Fiction">Fiction</option>
+                        </select>
+                    </div>
+
+                    <button type="button" id="clearFiltersBtn" class="btn btn-clear-filters">
+                        Clear Filters
+                    </button>
+                </div>
+
+                <!-- Book Cards Grid -->
+                <div id="booksGrid" class="books-grid">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 3: MY BORROWED BOOKS
+            =============================================== -->
+            <section id="section-my-books" class="dashboard-section">
+                <header class="page-header">
+                    <h1>My Borrowed Books</h1>
+                    <p>Academic titles currently checked out to your student library account.</p>
+                </header>
+
+                <div id="myBooksList" class="items-list">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 4: RESERVATIONS
+            =============================================== -->
+            <section id="section-reservations" class="dashboard-section">
+                <header class="page-header">
+                    <h1>My Reservations</h1>
+                    <p>Books currently borrowed by other patrons that you have reserved for priority checkout.</p>
+                </header>
+
+                <div id="reservationsList" class="items-list">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 5: BORROWING HISTORY
+            =============================================== -->
+            <section id="section-history" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Borrowing History</h1>
+                    <p>Historical audit of your past loans, returns, and issued items.</p>
+                </header>
+
+                <div class="table-responsive">
+                    <table class="academic-table">
+                        <thead>
+                            <tr>
+                                <th>Book Title & Author</th>
+                                <th>Borrow Date</th>
+                                <th>Return / Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 6: PROFILE
+            =============================================== -->
+            <section id="section-profile" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Student Profile</h1>
+                    <p>Verified institutional identification and library membership status.</p>
+                </header>
+
+                <div class="profile-card">
+                    <div class="profile-header-area">
+                        <div class="profile-avatar">👨‍🎓</div>
+                        <div>
+                            <h3 id="profileHeaderName">Student User</h3>
+                            <p style="font-size: 13px; color: var(--secondary-text);">Department of Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <form id="profileForm" novalidate>
+                        <div class="profile-details-grid">
+                            <div class="profile-field">
+                                <label for="profileFullNameInput" class="profile-field-label">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    id="profileFullNameInput" 
+                                    class="form-control" 
+                                    placeholder="Enter your full name" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="profile-field">
+                                <label for="profileStudentIdInput" class="profile-field-label">Student ID Number</label>
+                                <input 
+                                    type="text" 
+                                    id="profileStudentIdInput" 
+                                    class="form-control" 
+                                    placeholder="e.g. STU-2026-8841" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="profile-field">
+                                <span class="profile-field-label">Institutional Email</span>
+                                <span id="profileEmailDisplay" class="profile-field-value">student@gmail.com</span>
+                            </div>
+
+                            <div class="profile-field">
+                                <span class="profile-field-label">System Role</span>
+                                <span id="profileRoleDisplay" class="profile-field-value">Student / User</span>
+                            </div>
+
+                            <div class="profile-field">
+                                <span class="profile-field-label">Library Membership</span>
+                                <span class="profile-field-value">
+                                    <span class="badge-active">Active</span>
+                                </span>
+                            </div>
+
+                            <div class="profile-field">
+                                <span class="profile-field-label">Validity Period</span>
+                                <span class="profile-field-value">Academic Year 2026 - 2027</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border);">
+                            <button type="submit" id="saveProfileBtn" class="btn btn-primary">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/user.js"></script>
+</body>
+</html>

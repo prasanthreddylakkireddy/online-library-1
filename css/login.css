@@ -1,0 +1,297 @@
+/* ===================================================
+   ONLINE LIBRARY MANAGEMENT SYSTEM
+   Login Page Styles (login.css)
+   Clean, Minimal Academic 2-Column Layout
+=================================================== */
+
+/* Full Page Wrapper */
+.login-page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    background-color: var(--background);
+}
+
+/* Central Two-Column Container */
+.login-container {
+    width: 100%;
+    max-width: 980px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+/* ===================================================
+   LEFT SIDE: Library Branding Area
+=================================================== */
+.branding-section {
+    padding: 30px 20px;
+}
+
+.brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background-color: var(--light-green);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark-green);
+    margin-bottom: 24px;
+}
+
+.brand-icon {
+    font-size: 20px;
+}
+
+.branding-title {
+    font-size: 42px;
+    line-height: 1.15;
+    color: var(--dark-green);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.branding-title .highlight {
+    color: var(--primary-green);
+}
+
+.branding-subtitle {
+    font-size: 16px;
+    color: var(--secondary-text);
+    margin-bottom: 30px;
+    max-width: 440px;
+    line-height: 1.6;
+}
+
+/* Academic Feature Points (Subtle & Clean) */
+.academic-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.feature-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-green);
+}
+
+
+/* ===================================================
+   RIGHT SIDE: Clean Login Card
+=================================================== */
+.login-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px 36px;
+}
+
+.login-header {
+    margin-bottom: 26px;
+}
+
+.login-header h2 {
+    font-size: 26px;
+    color: var(--dark-green);
+    margin-bottom: 6px;
+}
+
+.login-header p {
+    font-size: 14px;
+    color: var(--secondary-text);
+}
+
+/* Input Styles */
+.input-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--secondary-text);
+}
+
+.password-toggle-wrapper input[type="checkbox"] {
+    accent-color: var(--primary-green);
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+}
+
+.password-toggle-wrapper label {
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Submit Button */
+.btn-login {
+    width: 100%;
+    padding: 13px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+/* Role Selection Buttons (Side-by-Side) */
+.role-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.role-btn {
+    flex: 1;
+    padding: 12px 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: 2px solid var(--primary-green);
+    background-color: var(--white);
+    color: var(--primary-green);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.role-btn:hover:not(.active) {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+}
+
+/* Active Selected Role: Dark Green Background + White Text + Bottom Accent Line */
+.role-btn.active {
+    background-color: var(--dark-green);
+    color: var(--white);
+    border-color: var(--dark-green);
+    font-weight: 700;
+    box-shadow: inset 0 -3px 0 var(--light-green);
+}
+
+/* Success and Error Notification Areas */
+.success-box {
+    display: none; /* Shown dynamically via JS */
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    background-color: var(--light-green);
+    border: 1px solid var(--primary-green);
+    border-radius: 6px;
+    color: var(--dark-green);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.error-box {
+    display: none; /* Shown dynamically via JS */
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: 6px;
+    color: var(--error-text);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Switch between Login and Registration */
+.auth-switch-text {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--secondary-text);
+}
+
+.link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary-green);
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: inherit;
+    transition: color 0.15s ease;
+}
+
+.link-btn:hover {
+    color: var(--dark-green);
+}
+
+/* Academic Footer note */
+.login-card-footer {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px;
+    color: var(--secondary-text);
+}
+
+/* ===================================================
+   RESPONSIVE DESIGN (Tablets & Mobile)
+=================================================== */
+@media (max-width: 820px) {
+    .login-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        max-width: 520px;
+    }
+
+    .branding-section {
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .brand-badge {
+        margin: 0 auto 16px auto;
+    }
+
+    .branding-title {
+        font-size: 32px;
+    }
+
+    .branding-subtitle {
+        margin: 0 auto 20px auto;
+    }
+
+    .academic-features {
+        align-items: center;
+    }
+
+    .demo-grid {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .login-card {
+        padding: 30px 24px;
+    }
+}

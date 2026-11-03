@@ -1,0 +1,954 @@
+/* ===================================================
+   ONLINE LIBRARY MANAGEMENT SYSTEM
+   User Dashboard Styles (user.css)
+   Academic, Clean, Minimal Design System
+=================================================== */
+
+/* CSS Variables for Dashboard Layout */
+:root {
+    --header-height: 60px;
+    --sidebar-width: 250px;
+}
+
+@media (min-width: 901px) {
+    body.dashboard-active {
+        overflow: hidden;
+        height: 100vh;
+    }
+}
+
+/* Top Navigation Bar (Fixed at Top) */
+.top-nav {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark-green);
+    letter-spacing: 0.5px;
+}
+
+.nav-user-info, .nav-user-identity {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.user-identity-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border);
+    padding: 4px 12px 4px 6px;
+    border-radius: 20px;
+}
+
+.identity-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--light-green);
+    border: 1.5px solid var(--primary-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.identity-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.identity-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--dark-green);
+}
+
+.identity-id {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--secondary-text);
+}
+
+.user-email-tag {
+    font-size: 13px;
+    color: var(--secondary-text);
+    background-color: var(--secondary-bg);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-weight: 500;
+}
+
+.btn-logout {
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border-color: var(--error-border);
+}
+
+/* Dashboard Body Container */
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===================================================
+   SIDEBAR NAVIGATION (Fixed on Left)
+=================================================== */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--white);
+    border-right: 1px solid var(--border);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+    position: fixed;
+    left: 0;
+    top: var(--header-height);
+    bottom: 0;
+    z-index: 90;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.sidebar-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sidebar-item a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary-text);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.sidebar-item a:hover {
+    background-color: var(--secondary-bg);
+    color: var(--primary-green);
+}
+
+.sidebar-item.active a {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    border-color: var(--border);
+}
+
+.sidebar-item .nav-icon {
+    font-size: 16px;
+    display: inline-block;
+}
+
+.sidebar-bottom {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.sidebar-footer-note {
+    font-size: 12px;
+    color: var(--secondary-text);
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    line-height: 1.4;
+    background-color: var(--secondary-bg);
+    border-radius: 6px;
+}
+
+.sidebar-logout-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    background-color: transparent;
+    color: var(--secondary-text);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.sidebar-logout-btn:hover {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border-color: var(--error-border);
+}
+
+/* ===================================================
+   MAIN CONTENT AREA (Only Area with Vertical Scroll)
+=================================================== */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    margin-top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+    padding: 32px 36px;
+    background-color: var(--background);
+    box-sizing: border-box;
+}
+
+/* Clean Subtle Scrollbars */
+.main-content::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.main-content::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+.main-content::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover,
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-text);
+}
+
+/* Notification Feedback Banner */
+.notification-banner {
+    display: none; /* Shown dynamically via JS */
+    padding: 12px 18px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.notification-banner.success {
+    background-color: var(--light-green);
+    border: 1px solid var(--primary-green);
+    color: var(--dark-green);
+}
+
+.notification-banner.warning {
+    background-color: #FAF4E1;
+    border: 1px solid #D6BC83;
+    color: #7A5812;
+}
+
+.notification-banner.error {
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    color: var(--error-text);
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.page-header h1 {
+    font-size: 26px;
+    color: var(--dark-green);
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+}
+
+.page-header p {
+    font-size: 14px;
+    color: var(--secondary-text);
+}
+
+/* Sections Show/Hide */
+.dashboard-section {
+    display: none;
+}
+
+.dashboard-section.active-section {
+    display: block;
+}
+
+/* ===================================================
+   STATISTICS GRID (4 CARDS)
+=================================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.2s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--primary-green);
+}
+
+.stat-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dark-green);
+    line-height: 1.1;
+}
+
+.stat-subtext {
+    font-size: 12px;
+    color: var(--secondary-text);
+}
+
+/* Warning styling for overdue */
+.stat-card.overdue-stat .stat-value {
+    color: #8C5311;
+}
+
+/* Dashboard Quick Panels */
+.dashboard-panels {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 22px;
+    margin-top: 10px;
+}
+
+.panel-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.panel-header h3 {
+    font-size: 16px;
+    color: var(--dark-green);
+}
+
+.panel-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-green);
+    cursor: pointer;
+}
+
+.panel-link:hover {
+    text-decoration: underline;
+}
+
+/* ===================================================
+   SEARCH & CATEGORY FILTER BAR (COMPACT SIZING)
+=================================================== */
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: var(--white);
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    align-items: center;
+}
+
+.search-input-group {
+    flex: 1;
+    position: relative;
+}
+
+.search-input-group input {
+    width: 100%;
+    height: 32px;
+    padding: 5px 11px;
+    font-size: 13px;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.search-input-group input:focus {
+    border-color: var(--primary-green);
+}
+
+.category-select-group {
+    min-width: 140px;
+}
+
+.category-select-group select {
+    width: 100%;
+    height: 32px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    outline: none;
+    background-color: var(--white);
+    color: var(--text);
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.category-select-group select:focus {
+    border-color: var(--primary-green);
+}
+
+/* Clear Filters Button */
+.btn-clear-filters {
+    height: 32px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: 6px;
+    background-color: var(--secondary-bg);
+    color: var(--primary-green);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.btn-clear-filters:hover {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    border-color: var(--primary-green);
+}
+
+/* ===================================================
+   BOOKS GRID & BOOK CARD
+=================================================== */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+.book-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease;
+}
+
+.book-card:hover {
+    border-color: var(--primary-green);
+}
+
+/* Academic Book Cover Placeholder */
+.book-cover {
+    height: 140px;
+    background-color: var(--secondary-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.book-cover::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: var(--primary-green);
+}
+
+.book-cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-category-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dark-green);
+    background-color: var(--light-green);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.book-emblem {
+    font-size: 20px;
+}
+
+.book-isbn-tag {
+    font-size: 11px;
+    color: var(--secondary-text);
+    font-family: monospace;
+}
+
+.book-body {
+    padding: 18px 18px 14px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark-green);
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.book-author {
+    font-size: 13px;
+    color: var(--secondary-text);
+    margin-bottom: 14px;
+}
+
+.book-availability {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.availability-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-available {
+    color: var(--primary-green);
+}
+
+.status-available .availability-dot {
+    background-color: var(--primary-green);
+}
+
+.status-borrowed {
+    color: #8C5311;
+}
+
+.status-borrowed .availability-dot {
+    background-color: #8C5311;
+}
+
+.book-actions {
+    padding: 0 18px 18px 18px;
+}
+
+.book-actions .btn {
+    width: 100%;
+    padding: 9px;
+    font-size: 13px;
+}
+
+/* ===================================================
+   MY BOOKS & RESERVATIONS CARDS
+=================================================== */
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.item-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.item-info h4 {
+    font-size: 16px;
+    color: var(--dark-green);
+    margin-bottom: 4px;
+}
+
+.item-info p {
+    font-size: 13px;
+    color: var(--secondary-text);
+    margin-bottom: 8px;
+}
+
+.item-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text);
+    flex-wrap: wrap;
+}
+
+.meta-badge {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Status Badges */
+.badge-active {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.badge-overdue {
+    background-color: #FAF2DC;
+    color: #8A6D3B;
+    border: 1px solid #D6BC83;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.badge-waiting {
+    background-color: var(--secondary-bg);
+    color: var(--dark-green);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+/* Empty State Box */
+.empty-state {
+    background-color: var(--white);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--secondary-text);
+}
+
+.empty-state-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.empty-state h4 {
+    font-size: 16px;
+    color: var(--dark-green);
+    margin-bottom: 6px;
+}
+
+.empty-state p {
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+/* ===================================================
+   HISTORY TABLE
+=================================================== */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.academic-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+}
+
+.academic-table th {
+    background-color: var(--secondary-bg);
+    color: var(--dark-green);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.academic-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+
+.academic-table tr:last-child td {
+    border-bottom: none;
+}
+
+.academic-table tr:hover td {
+    background-color: #FAFCF8;
+}
+
+/* ===================================================
+   PROFILE SECTION
+=================================================== */
+.profile-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 680px;
+}
+
+.profile-header-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: var(--light-green);
+    border: 2px solid var(--primary-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.profile-header-area h3 {
+    font-size: 20px;
+    color: var(--dark-green);
+    margin-bottom: 4px;
+}
+
+.profile-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 24px;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-field-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-field-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.profile-field input.form-control {
+    margin-top: 4px;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    outline: none;
+    color: var(--text);
+    background-color: var(--white);
+    transition: border-color 0.2s ease;
+}
+
+.profile-field input.form-control:focus {
+    border-color: var(--primary-green);
+}
+
+/* ===================================================
+   RESPONSIVE DESIGN
+=================================================== */
+@media (max-width: 900px) {
+    body {
+        overflow-y: auto;
+        height: auto;
+    }
+
+    .top-nav {
+        position: sticky;
+        top: 0;
+        height: auto;
+        padding: 12px 16px;
+    }
+
+    .dashboard-layout {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 16px;
+        top: auto;
+        bottom: auto;
+        overflow-y: visible;
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .sidebar-item a {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .sidebar-bottom {
+        display: none; /* Accessible in top-nav */
+    }
+
+    .main-content {
+        margin-left: 0;
+        margin-top: 0;
+        height: auto;
+        overflow-y: visible;
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .item-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .profile-details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .books-grid {
+        grid-template-columns: 1fr;
+    }
+}

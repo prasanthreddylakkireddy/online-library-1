@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Online Library Management System - Minimal and academic portal for students and administrators.">
+    <title>Login - Online Library Management System</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+    <main class="login-page-wrapper">
+        <div class="login-container">
+
+            <!-- LEFT SIDE: Library Branding Area -->
+            <section class="branding-section" aria-label="Library Information">
+                <div class="brand-badge">
+                    <img src="images/logo.png" alt="Library Emblem" width="22" height="22" style="vertical-align: middle;">
+                    <span>ACADEMIC PORTAL</span>
+                </div>
+
+                <h1 class="branding-title">
+                    ONLINE<br>
+                    <span class="highlight">LIBRARY</span><br>
+                    MANAGEMENT<br>
+                    SYSTEM
+                </h1>
+
+                <p class="branding-subtitle">
+                    Smart and simple library management for students and administrators.
+                </p>
+
+                <div class="academic-features">
+                    <div class="feature-item">
+                        <span class="feature-dot"></span>
+                        <span>Catalog access & digital resource searching</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-dot"></span>
+                        <span>Quick issue tracking & automated reservation system</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-dot"></span>
+                        <span>Role-based portal for students and faculty administrators</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT SIDE: Login Card -->
+            <section class="login-card-section" aria-label="Sign In">
+                <div class="login-card">
+                    
+                    <!-- ==============================================
+                         LOGIN VIEW
+                    =============================================== -->
+                    <div id="loginView">
+                        <div class="login-header">
+                            <h2>Welcome Back</h2>
+                            <p>Sign in to access the library system</p>
+                        </div>
+
+                        <!-- Success and Error Notification Boxes -->
+                        <div id="successBox" class="success-box" role="status"></div>
+                        <div id="errorBox" class="error-box" role="alert"></div>
+
+                        <!-- Role Selection Buttons (Side-by-Side) -->
+                        <div class="role-selector" role="group" aria-label="Role Selection">
+                            <button type="button" id="studentRoleBtn" class="role-btn active">Student Login</button>
+                            <button type="button" id="adminRoleBtn" class="role-btn">Admin Login</button>
+                        </div>
+
+                        <!-- Login Form -->
+                        <form id="loginForm" novalidate>
+                            <div class="form-group">
+                                <label for="email">Institutional Email</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    class="form-control" 
+                                    placeholder="e.g., student@gmail.com" 
+                                    autocomplete="email" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    class="form-control" 
+                                    placeholder="Enter your password" 
+                                    autocomplete="current-password" 
+                                    required
+                                >
+                            </div>
+
+                            <!-- Show/Hide Password Toggle -->
+                            <div class="password-toggle-wrapper">
+                                <input type="checkbox" id="showPassword">
+                                <label for="showPassword">Show Password</label>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" id="loginBtn" class="btn btn-primary btn-login">
+                                LOGIN
+                            </button>
+                        </form>
+
+                        <!-- Switch to Registration View -->
+                        <div class="auth-switch-text">
+                            Don't have an account? 
+                            <button type="button" id="showRegisterBtn" class="link-btn">Sign Up</button>
+                        </div>
+                    </div>
+
+                    <!-- ==============================================
+                         REGISTRATION VIEW
+                    =============================================== -->
+                    <div id="registerView" style="display: none;">
+                        <div class="login-header">
+                            <h2>Create Account</h2>
+                            <p>Register for institutional library system access</p>
+                        </div>
+
+                        <!-- Registration Success and Error Alerts -->
+                        <div id="regSuccessBox" class="success-box" role="status"></div>
+                        <div id="regErrorBox" class="error-box" role="alert"></div>
+
+                        <form id="registerForm" novalidate>
+                            <div class="form-group">
+                                <label for="regFullName">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    id="regFullName" 
+                                    class="form-control" 
+                                    placeholder="Enter your full name" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regStudentId">Student / Staff ID</label>
+                                <input 
+                                    type="text" 
+                                    id="regStudentId" 
+                                    class="form-control" 
+                                    placeholder="e.g. 2500080220 or STU-2026-1042" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regEmail">Institutional Email</label>
+                                <input 
+                                    type="email" 
+                                    id="regEmail" 
+                                    class="form-control" 
+                                    placeholder="e.g., student@gmail.com" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regPassword">Password</label>
+                                <input 
+                                    type="password" 
+                                    id="regPassword" 
+                                    class="form-control" 
+                                    placeholder="Minimum 4 characters" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regConfirmPassword">Confirm Password</label>
+                                <input 
+                                    type="password" 
+                                    id="regConfirmPassword" 
+                                    class="form-control" 
+                                    placeholder="Confirm your password" 
+                                    required
+                                >
+                            </div>
+
+                            <!-- Account Type / Role Selection -->
+                            <div class="form-group">
+                                <label>Account Type</label>
+                                <div class="role-selector" role="group" aria-label="Account Type Selection" style="margin-bottom: 0;">
+                                    <button type="button" id="regRoleStudentBtn" class="role-btn active">Student / User</button>
+                                    <button type="button" id="regRoleAdminBtn" class="role-btn">Administrator</button>
+                                </div>
+                            </div>
+
+                            <!-- Administrator Access Code (Only visible when Administrator is selected) -->
+                            <div class="form-group" id="adminCodeGroup" style="display: none; margin-top: 16px;">
+                                <label for="regAdminCode">ADMIN ACCESS CODE</label>
+                                <input 
+                                    type="password" 
+                                    id="regAdminCode" 
+                                    class="form-control" 
+                                    placeholder="Enter administrator access code"
+                                    autocomplete="off"
+                                >
+                            </div>
+
+                            <!-- Register Submit Button -->
+                            <button type="submit" id="registerSubmitBtn" class="btn btn-primary btn-login" style="margin-top: 18px;">
+                                CREATE ACCOUNT
+                            </button>
+                        </form>
+
+                        <!-- Switch to Login View -->
+                        <div class="auth-switch-text">
+                            Already have an account? 
+                            <button type="button" id="showLoginBtn" class="link-btn">Login</button>
+                        </div>
+                    </div>
+
+                    <div class="login-card-footer">
+                        <span>Central University Academic Library System &bull; Portal Access</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/login.js"></script>
+</body>
+</html>

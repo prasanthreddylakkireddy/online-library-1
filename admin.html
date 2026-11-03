@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Online Library Management System - Administrative Portal Dashboard">
+    <title>Admin Dashboard - Online Library Management System</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <!-- Top Navigation Bar (Fixed) -->
+    <header class="top-nav">
+        <div class="nav-brand">
+            <img src="images/logo.png" alt="Library Emblem" width="26" height="26" style="vertical-align: middle;">
+            <span>ONLINE LIBRARY</span>
+            <span class="nav-admin-badge">ADMIN PORTAL</span>
+        </div>
+        <div class="nav-user-identity">
+            <div class="user-identity-box">
+                <div class="identity-avatar">👤</div>
+                <div class="identity-text">
+                    <span class="identity-name" id="adminHeaderName">Administrator</span>
+                    <span class="identity-id" id="adminHeaderId">ADMIN001</span>
+                </div>
+            </div>
+            <button id="logoutBtn" class="btn-logout" type="button">Logout</button>
+        </div>
+    </header>
+
+    <!-- Dashboard Main Layout -->
+    <div class="dashboard-layout">
+
+        <!-- Sidebar Navigation (Fixed) -->
+        <aside class="sidebar" aria-label="Administrator Navigation">
+            <ul class="sidebar-menu" id="adminSidebarMenu">
+                <li class="sidebar-item active">
+                    <a href="#dashboard" data-section="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#books" data-section="books">
+                        <span class="nav-icon">📚</span>
+                        <span>Books</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#users" data-section="users">
+                        <span class="nav-icon">👥</span>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#borrowed-books" data-section="borrowed-books">
+                        <span class="nav-icon">📋</span>
+                        <span>Borrowed Books</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#reservations" data-section="reservations">
+                        <span class="nav-icon">🔖</span>
+                        <span>Reservations</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#overdue-books" data-section="overdue-books">
+                        <span class="nav-icon">⚠️</span>
+                        <span>Overdue Books</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#reports" data-section="reports">
+                        <span class="nav-icon">📈</span>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#profile" data-section="profile">
+                        <span class="nav-icon">👤</span>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-footer-note">
+                    <strong>Administrative Authority</strong><br>
+                    Level 1 Central Access &bull; Active
+                </div>
+                <button id="sidebarLogoutBtn" class="sidebar-logout-btn" type="button">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area (Scrollable) -->
+        <main class="main-content">
+
+            <!-- System Notification Feedback Banner -->
+            <div id="notificationBanner" class="notification-banner" role="status"></div>
+
+            <!-- ==============================================
+                 SECTION 1: DASHBOARD OVERVIEW
+            =============================================== -->
+            <section id="section-dashboard" class="dashboard-section active-section">
+                <header class="page-header">
+                    <h1>Admin Dashboard</h1>
+                    <p>Monitor and manage library operations.</p>
+                </header>
+
+                <!-- 6 Dynamic Statistics Cards -->
+                <section class="stats-grid-6" aria-label="System Overview Statistics">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Books</div>
+                        <div id="statTotalBooks" class="stat-value">0</div>
+                        <div class="stat-subtext">Registered catalog titles</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Available Books</div>
+                        <div id="statAvailableBooks" class="stat-value">0</div>
+                        <div class="stat-subtext">Ready for checkout</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Borrowed Books</div>
+                        <div id="statBorrowedBooks" class="stat-value">0</div>
+                        <div class="stat-subtext">Currently in circulation</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Total Users</div>
+                        <div id="statTotalUsers" class="stat-value">0</div>
+                        <div class="stat-subtext">Registered patrons</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Reservations</div>
+                        <div id="statReservations" class="stat-value">0</div>
+                        <div class="stat-subtext">Pending hold requests</div>
+                    </div>
+
+                    <div class="stat-card overdue-stat">
+                        <div class="stat-label">Overdue Books</div>
+                        <div id="statOverdueBooks" class="stat-value">0</div>
+                        <div class="stat-subtext">Exceeding 14-day limit</div>
+                    </div>
+                </section>
+
+                <!-- Recent Library Activity Panel -->
+                <div class="panel-card" style="margin-top: 10px;">
+                    <div class="panel-header">
+                        <h3>Recent Library Activity</h3>
+                        <span style="font-size: 12px; color: var(--secondary-text);">Live System Event Stream</span>
+                    </div>
+                    <div id="recentActivityList">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 2: MANAGE BOOKS
+            =============================================== -->
+            <section id="section-books" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Library Books</h1>
+                    <p>Manage catalog inventory, add new books, edit information, or remove titles.</p>
+                </header>
+
+                <!-- Filter & Action Toolbar -->
+                <div class="filter-bar">
+                    <div class="search-input-group">
+                        <input 
+                            type="text" 
+                            id="adminBookSearch" 
+                            placeholder="Search by title, author, or ISBN..."
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <div class="category-select-group">
+                        <select id="adminCategoryFilter" aria-label="Filter by Category">
+                            <option value="All Categories">All Categories</option>
+                            <option value="Programming">Programming</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Database">Database</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Cyber Security">Cyber Security</option>
+                            <option value="Cloud Computing">Cloud Computing</option>
+                            <option value="Operating Systems">Operating Systems</option>
+                            <option value="Computer Networks">Computer Networks</option>
+                            <option value="Software Engineering">Software Engineering</option>
+                            <option value="Algorithms">Algorithms</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Fiction">Fiction</option>
+                        </select>
+                    </div>
+
+                    <button type="button" id="adminClearFiltersBtn" class="btn btn-clear-filters">
+                        Clear Filters
+                    </button>
+
+                    <button type="button" id="openAddBookBtn" class="btn-add-book">
+                        <span>+</span> Add Book
+                    </button>
+                </div>
+
+                <!-- Books Table -->
+                <div class="table-responsive">
+                    <table class="academic-table">
+                        <thead>
+                            <tr>
+                                <th>Book Title</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>ISBN</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminBooksTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 3: MANAGE USERS
+            =============================================== -->
+            <section id="section-users" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Manage Users</h1>
+                    <p>Institutional library members and registered student patrons.</p>
+                </header>
+
+                <!-- User Search & Filter Toolbar -->
+                <div class="filter-bar">
+                    <div class="search-input-group">
+                        <input 
+                            type="text" 
+                            id="adminUserSearch" 
+                            placeholder="Search users by name, student ID, or email..."
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <div class="category-select-group">
+                        <select id="adminUserRoleFilter" aria-label="Filter by Role">
+                            <option value="All Roles">All Roles</option>
+                            <option value="user">Students</option>
+                            <option value="admin">Administrators</option>
+                        </select>
+                    </div>
+
+                    <button type="button" id="adminUserClearFiltersBtn" class="btn-clear-filters">
+                        Clear Filters
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="academic-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Student ID</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Membership</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 4: BORROWED BOOKS
+            =============================================== -->
+            <section id="section-borrowed-books" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Borrowed Books</h1>
+                    <p>Current active circulation records and issued library materials.</p>
+                </header>
+
+                <div class="table-responsive">
+                    <table class="academic-table">
+                        <thead>
+                            <tr>
+                                <th>Book Title</th>
+                                <th>Borrower</th>
+                                <th>Borrow Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminBorrowedTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 5: RESERVATIONS
+            =============================================== -->
+            <section id="section-reservations" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Reservations</h1>
+                    <p>Active student holds and priority reservations on circulating materials.</p>
+                </header>
+
+                <div class="table-responsive">
+                    <table class="academic-table">
+                        <thead>
+                            <tr>
+                                <th>Book Title</th>
+                                <th>User</th>
+                                <th>Reservation Date</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminReservationsTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 6: OVERDUE BOOKS
+            =============================================== -->
+            <section id="section-overdue-books" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Overdue Books</h1>
+                    <p>Checked-out loans that have exceeded their allowable 14-day circulation window.</p>
+                </header>
+
+                <div class="table-responsive">
+                    <table class="academic-table">
+                        <thead>
+                            <tr>
+                                <th>Book Title</th>
+                                <th>Borrower</th>
+                                <th>Due Date</th>
+                                <th>Days Overdue</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminOverdueTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 7: LIBRARY REPORTS
+            =============================================== -->
+            <section id="section-reports" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Library Reports</h1>
+                    <p>System metrics, circulation statistics, and academic discipline breakdown.</p>
+                </header>
+
+                <div class="reports-grid">
+                    <!-- Left: Numerical Summary -->
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h3>Circulation & Collection Summary</h3>
+                        </div>
+                        <div class="report-summary-box" id="reportSummaryBox">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Right: Category-Wise Breakdown Bars -->
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h3>Category-Wise Book Distribution</h3>
+                        </div>
+                        <div class="category-breakdown-list" id="categoryReportList">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECTION 8: ADMIN PROFILE
+            =============================================== -->
+            <section id="section-profile" class="dashboard-section">
+                <header class="page-header">
+                    <h1>Administrator Profile</h1>
+                    <p>Manage your administrator account information.</p>
+                </header>
+
+                <div class="profile-card">
+                    <div class="profile-header-area">
+                        <div class="profile-avatar">👤</div>
+                        <div>
+                            <h3 id="adminProfileHeaderName">Library Administrator</h3>
+                            <p style="font-size: 13px; color: var(--secondary-text);">Library Administration</p>
+                        </div>
+                    </div>
+
+                    <form id="adminProfileForm" novalidate>
+                        <div class="profile-details-grid">
+                            <div class="profile-field">
+                                <label for="adminProfileFullName" class="profile-field-label">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    id="adminProfileFullName" 
+                                    class="form-control" 
+                                    placeholder="Enter your full name" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="profile-field">
+                                <label for="adminProfileAdminId" class="profile-field-label">Admin ID</label>
+                                <input 
+                                    type="text" 
+                                    id="adminProfileAdminId" 
+                                    class="form-control" 
+                                    placeholder="e.g. ADMIN001" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="profile-field">
+                                <label for="adminProfileEmail" class="profile-field-label">Institutional Email</label>
+                                <input 
+                                    type="email" 
+                                    id="adminProfileEmail" 
+                                    class="form-control" 
+                                    placeholder="e.g. admin@library.com" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="profile-field">
+                                <span class="profile-field-label">System Role</span>
+                                <span id="adminProfileRoleDisplay" class="profile-field-value">Administrator</span>
+                            </div>
+
+                            <div class="profile-field">
+                                <span class="profile-field-label">Library Access</span>
+                                <span class="profile-field-value">
+                                    <span class="badge-active">Active</span>
+                                </span>
+                            </div>
+
+                            <div class="profile-field">
+                                <span class="profile-field-label">Account Type</span>
+                                <span class="profile-field-value">Administrator</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border);">
+                            <button type="submit" id="saveAdminProfileBtn" class="btn btn-primary">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- ==============================================
+         MODAL: ADD / EDIT BOOK
+    =============================================== -->
+    <div id="bookModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalHeaderTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalHeaderTitle">Add New Book</h3>
+                <button type="button" class="modal-close-btn" id="closeBookModalXBtn">&times;</button>
+            </div>
+
+            <form id="bookForm" novalidate>
+                <input type="hidden" id="modalBookId">
+
+                <div class="form-group">
+                    <label for="modalTitle">Book Title</label>
+                    <input type="text" id="modalTitle" class="form-control" placeholder="e.g., Clean Code" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modalAuthor">Author</label>
+                    <input type="text" id="modalAuthor" class="form-control" placeholder="e.g., Robert C. Martin" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modalCategory">Category</label>
+                    <select id="modalCategory" class="form-control" required>
+                        <option value="Programming">Programming</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Database">Database</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                        <option value="Machine Learning">Machine Learning</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Cyber Security">Cyber Security</option>
+                        <option value="Cloud Computing">Cloud Computing</option>
+                        <option value="Operating Systems">Operating Systems</option>
+                        <option value="Computer Networks">Computer Networks</option>
+                        <option value="Software Engineering">Software Engineering</option>
+                        <option value="Algorithms">Algorithms</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Fiction">Fiction</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="modalIsbn">ISBN</label>
+                    <input type="text" id="modalIsbn" class="form-control" placeholder="e.g., 9780132350884" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modalStatus">Status</label>
+                    <select id="modalStatus" class="form-control" required>
+                        <option value="available">Available</option>
+                        <option value="borrowed">Borrowed</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="closeBookModalBtn" class="btn btn-outline">Cancel</button>
+                    <button type="submit" id="saveBookBtn" class="btn btn-primary">Save Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         MODAL: DELETE CONFIRMATION
+    =============================================== -->
+    <div id="deleteModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+        <div class="modal-card" style="max-width: 440px;">
+            <div class="modal-header">
+                <h3 id="deleteModalTitle">Confirm Delete</h3>
+                <button type="button" class="modal-close-btn" id="closeDeleteModalXBtn">&times;</button>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text); margin-bottom: 8px;">
+                Are you sure you want to delete this book from the catalog?
+            </p>
+            <p id="deleteBookTitle" style="font-size: 14px; font-weight: 700; color: var(--dark-green); margin-bottom: 14px;"></p>
+            <p style="font-size: 12px; color: var(--secondary-text); margin-bottom: 0;">
+                This action will remove the title from both Administrator and Student portals.
+            </p>
+
+            <input type="hidden" id="deleteBookId">
+
+            <div class="modal-footer">
+                <button type="button" id="cancelDeleteBtn" class="btn btn-outline">Cancel</button>
+                <button type="button" id="confirmDeleteBtn" class="btn" style="background-color: #8C2B2B; color: #FFFFFF; border: 1px solid #8C2B2B;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         MODAL: EDIT USER
+    =============================================== -->
+    <div id="userEditModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="userEditModalTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="userEditModalTitle">Edit User Information</h3>
+                <button type="button" class="modal-close-btn" id="closeUserModalXBtn">&times;</button>
+            </div>
+
+            <!-- In-modal Error Box -->
+            <div id="userEditErrorBox" class="error-box" role="alert" style="display: none; margin-bottom: 14px;"></div>
+
+            <form id="userEditForm" novalidate>
+                <input type="hidden" id="editUserId">
+
+                <div class="form-group">
+                    <label for="editUserFullName">Full Name</label>
+                    <input type="text" id="editUserFullName" class="form-control" placeholder="Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editUserStudentId">Student / Staff ID</label>
+                    <input type="text" id="editUserStudentId" class="form-control" placeholder="Student ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editUserEmail">Email Address</label>
+                    <input type="email" id="editUserEmail" class="form-control" placeholder="Email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editUserRole">System Role</label>
+                    <select id="editUserRole" class="form-control" required>
+                        <option value="user">Student / User</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editUserMembership">Library Membership</label>
+                    <select id="editUserMembership" class="form-control" required>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Suspended">Suspended</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="closeUserModalBtn" class="btn btn-outline">Cancel</button>
+                    <button type="submit" id="saveUserBtn" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         MODAL: DELETE USER CONFIRMATION
+    =============================================== -->
+    <div id="deleteUserModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="deleteUserModalTitle">
+        <div class="modal-card" style="max-width: 440px;">
+            <div class="modal-header">
+                <h3 id="deleteUserModalTitle">Confirm Delete User</h3>
+                <button type="button" class="modal-close-btn" id="closeDeleteUserModalXBtn">&times;</button>
+            </div>
+
+            <!-- In-modal Notification Box -->
+            <div id="deleteUserAlertBox" class="error-box" role="alert" style="display: none; margin-bottom: 14px;"></div>
+
+            <p id="deleteUserQuestion" style="font-size: 14px; color: var(--text); margin-bottom: 8px;">
+                Are you sure you want to delete this user?
+            </p>
+            <p id="deleteUserNameDisplay" style="font-size: 14px; font-weight: 700; color: var(--dark-green); margin-bottom: 14px;"></p>
+            <p style="font-size: 12px; color: var(--secondary-text); margin-bottom: 0;">
+                This action will permanently remove the user account from localStorage.
+            </p>
+
+            <input type="hidden" id="deleteUserId">
+
+            <div class="modal-footer">
+                <button type="button" id="cancelDeleteUserBtn" class="btn btn-outline">Cancel</button>
+                <button type="button" id="confirmDeleteUserBtn" class="btn" style="background-color: #8C2B2B; color: #FFFFFF; border: 1px solid #8C2B2B;">Delete User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/admin.js"></script>
+</body>
+</html>
